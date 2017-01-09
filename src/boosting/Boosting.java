@@ -1,14 +1,14 @@
 package boosting;
 
 import parser.Instances;
-import tree.ADTree;
+import tree.BoostableADTree;
 
 /**
  * Main interface for all possible boosting algorithms.
  *
  * @author Philipp Bergt
  */
-public interface Boostable<T> {
+public interface Boosting<Input, PredictionType> {
 
     /**
      * Appyling boosting algorithm on given tree, based on training dataset and iterations.
@@ -17,6 +17,6 @@ public interface Boostable<T> {
      * @param instances training data
      * @param iterations max iterations
      */
-    void boost(ADTree<T> tree, Instances<T> instances, int iterations);
+    void boost(BoostableADTree<Input, PredictionType> tree, Instances<Input> instances, int iterations);
 
 }

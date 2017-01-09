@@ -12,7 +12,9 @@ public class Condition {
     enum ConditionType {
         EQUAL,
         GREATER,
-        LESS
+        LESS,
+        GREATER_THAN,
+        LESS_THAN
     }
 
     public Condition(double value, int dimensionIndex, ConditionType conditionType) {
@@ -21,11 +23,11 @@ public class Condition {
         _conditionType = conditionType;
     }
 
-    public boolean check(int value) {
+    public boolean check(double value) {
 
     }
 
-    public boolean check(double value) {
+    public boolean isTrue() {
 
     }
 

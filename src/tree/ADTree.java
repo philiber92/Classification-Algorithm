@@ -1,66 +1,59 @@
 package tree;
 
+import parser.Instance;
 import parser.Instances;
-import util.Condition;
+
+import java.util.Optional;
 
 /**
+ * Represents an interface for constructing and simulating alternating decision trees.
+ *
  * @author Philipp Bergt
  */
-public abstract class ADTree<T> {
+public interface ADTree<Input, PredictionType> {
 
-    public abstract int classify(T data);
+    /**
+     * Classifies multiples objects of type {@link Instance} by simulating {@link ADTree}.
+     *
+     * @param instances
+     * @return related {@link Instances} with set {@link Instance#_label}
+     */
+    Instances<Input> classify(Instances<Input> instances);
 
-    public abstract double simulate(T data);
+    /**
+     * Classifies one object of type {@link Instance} by simulating {@link ADTree}.
+     *
+     * @param instance
+     * @return related {@link Instance} with set {@link Instance#_label}
+     */
+    Instance<Input> classify(Instance<Input> instance);
 
-    public abstract void train(Instances<T>, int iterations);
+    /**
+     * Sets root {@link PredictionNode} by {@link PredictionType}.
+     *
+     * @param prediction
+     */
+    void setRootPrediction(PredictionType prediction);
 
-    class SplitterNode {
-        private Condition _condition;
-        private PredictionNode _truePrediction;
-        private PredictionNode _falsePrediction;
+    /**
+     * Sets root {@link PredictionNode} to pre-created one.
+     *
+     * @param predictionNode
+     */
+    void setRoot(PredictionNode predictionNode);
 
-        public SplitterNode(Condition condition, double truePrediction, double falsePrediction) {
-            _condition = condition;
-            _truePrediction = new PredictionNode(truePrediction);
-            _falsePrediction = new PredictionNode(falsePrediction);
-        }
+    /**
+     * Simulates given {@link Instance} over the whole pre-trained adtree.
+     *
+     * @param instance
+     * @return summed {@link PredictionType} from root to last leaf
+     */
+    PredictionType simulate(Instance<Input> instance);
 
-        public PredictionNode getNextPredictionNode(int value) {
-
-        }
-
-        public int getConditionDimension() {
-            return _condition.getDimension();
-        }
-
-        public PredictionNode getTruePredictionNode() {
-            return _truePrediction;
-        }
-
-        public PredictionNode getFalsePredictionNode() {
-            return _falsePrediction;
-        }
-    }
-
-    class PredictionNode {
-        private double _value;
-        private SplitterNode _childNode;
-
-        public PredictionNode(final double value) {
-            _value = value;
-        }
-
-        public void addChildNode(final SplitterNode splitter) {
-            _childNode = splitter;
-        }
-
-        public SplitterNode getChildNode() {
-            return _childNode;
-        }
-
-        public double getValue() {
-            return _value;
-        }
-    }
-
+    /**
+     * Returns root {@link PredictionNode}.
+     *
+     * @return {@link PredictionNode}
+     */
+    Optional<PredictionNode> getRootPrediction();
 }

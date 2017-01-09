@@ -1,13 +1,15 @@
 package parser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Simple wrapper class which is able to hold multiple elements of type {@link Instance}.
  *
- * @param <T> x data type or dimension
+ * @param <T> underlying data structure
  * @author Philipp Bergt
  */
 public class Instances<T> implements Iterable<Instance<T>>{
@@ -31,6 +33,46 @@ public class Instances<T> implements Iterable<Instance<T>>{
      */
     public void add(T data, int label) {
         _instances.add(new Instance<>(data, label));
+    }
+
+    /**
+     * Counts all class labels.
+     *
+     * @return number of labels
+     */
+    public int countClasses() {
+        if(_instances.isEmpty())
+            throw new RuntimeException("No instances added!");
+        return _instances
+                .stream()
+                .filter(Instance::isLabeled)
+                .map(Instance::getLabel)
+                .collect(Collectors.toCollection(HashSet::new))
+                .size();
+    }
+
+    /**
+     * Counts dimension(s) of instances' data.
+     *
+     * @return dimensions
+     */
+    public int countDimensions() {
+        if(_instances.isEmpty())
+            throw new RuntimeException("No instances added!");
+        return _instances.get(0).countDimensions();
+    }
+
+    /**
+     * Counts all contained {@link Instance}.
+     *
+     * @return number of {@link Instance} elements.
+     */
+    public int size() {
+        return _instances.size();
+    }
+
+    public Instance<T> get(int index) {
+        return _instances.get(index);
     }
 
     @Override

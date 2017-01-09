@@ -1,47 +1,61 @@
 package parser;
 
-import tree.ADTree;
+import java.util.Optional;
 
 /**
- * Represents a training dataset, which contains both data and label.
+ * Represents a data set, which contains both data and label.
  *
  * @author Philipp Bergt
  */
 public class Instance<T> {
 
-    final private T _data;
-    private int _label;
-    private double _weight;
+    private T _data;
+    private int _dimension;
+    private Optional<Integer> _label;
 
     /**
-     * Constructs new {@link Instance} by given data and label.
-     * Sets {@link #_weight} to a value of 1.
+     * Constructs new {@link Instance} by given data, dimension and label.
      *
-     * @param data x data type or dimension
+     * @param data data
+     * @param dimension dimensions of data
      * @param label data label
      */
-    public Instance(final T data, final int label) {
+    public Instance(final T data, final int dimension, final int label) {
+        init(data, dimension, Optional.of(label));
+    }
+
+    /**
+     * Constructs new unlabeled {@link Instance} by given data and dimension.
+     *
+     * @param data data
+     * @param dimension dimensions of data
+     */
+    public Instance(final T data, final int dimension) {
+        init(data, dimension, Optional.empty());
+    }
+
+    private void init(final T data, final int dimension, final Optional<Integer> label) {
         _data = data;
         _label = label;
-        _weight = 1;
+        _dimension = dimension;
     }
 
     /**
-     * Updates weight based on currently set weight and prediction.
+     * Returns related label of instance. If the instance is
+     * unlabeled -1 is returned.
      *
-     * @param tree currently constructed decision tree
-     */
-    public void updateWeight(final ADTree<T> tree) {
-        //TODO: perhaps move this to an external call
-        double predicition = tree.simulate(_data);
-        _weight = _weight * Math.exp((-1)*_label*predicition);
-    }
-
-    /**
-     * @return related label
+     * @return related label or -1
      */
     public int getLabel() {
-        return _label;
+        return _label.orElse(-1);
+    }
+
+    /**
+     *
+     * @param label label
+     */
+    public void setLabel(int label) {
+        _label = Optional.of(label);
     }
 
     /**
@@ -49,6 +63,22 @@ public class Instance<T> {
      */
     public T getData() {
         return _data;
+    }
+
+    /**
+     * @return number of dimensions
+     */
+    public int countDimensions() {
+        return _dimension;
+    }
+
+    /**
+     * Checks if instance is labeled.
+     *
+     * @return true, if instance is labeled, otherwise false
+     */
+    public boolean isLabeled() {
+        return _label.isPresent();
     }
 
 }
