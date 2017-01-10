@@ -54,7 +54,7 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
     class PredictionNode implements tree.PredictionNode<PredictionType> {
 
         private final PredictionType _prediction;
-        private Optional<tree.SplitterNode> _splitter;
+        private Optional<tree.SplitterNode<PredictionType>> _splitter;
 
         PredictionNode(PredictionType prediction) {
             this(prediction, null);
@@ -66,7 +66,7 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
         }
 
         @Override
-        public void setSplitter(tree.SplitterNode splitter) {
+        public void setSplitter(tree.SplitterNode<PredictionType> splitter) {
             _splitter = Optional.ofNullable(splitter);
         }
 
@@ -76,7 +76,7 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
         }
 
         @Override
-        public Optional<tree.SplitterNode> getSplitter() {
+        public Optional<tree.SplitterNode<PredictionType>> getSplitter() {
             return _splitter;
         }
 
@@ -118,7 +118,7 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
         }
     }
 
-    class SplitterNode implements tree.SplitterNode {
+    class SplitterNode implements tree.SplitterNode<PredictionType> {
 
         private final Condition _condition;
         private final PredictionNode _truePrediction, _falsePrediction;
@@ -135,12 +135,12 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
         }
 
         @Override
-        public tree.PredictionNode getTruePrediction() {
+        public tree.PredictionNode<PredictionType> getTruePrediction() {
             return _truePrediction;
         }
 
         @Override
-        public tree.PredictionNode getFalsePrediction() {
+        public tree.PredictionNode<PredictionType> getFalsePrediction() {
             return _falsePrediction;
         }
     }

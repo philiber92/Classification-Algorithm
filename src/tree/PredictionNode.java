@@ -5,13 +5,13 @@ import java.util.Optional;
 /**
  * @author Philipp Bergt
  */
-public interface PredictionNode<Input> {
+public interface PredictionNode<PredictionType> {
 
     /**
      *
      * @param splitter
      */
-    void setSplitter(SplitterNode splitter);
+    void setSplitter(SplitterNode<PredictionType> splitter);
 
     /**
      *
@@ -23,11 +23,11 @@ public interface PredictionNode<Input> {
      *
      * @return
      */
-    Optional<SplitterNode> getSplitter();
+    Optional<SplitterNode<PredictionType>> getSplitter();
 
     /**
      *
      * @return
      */
-    Input getValue();
+    PredictionType getValue();
 }

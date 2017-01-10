@@ -43,12 +43,7 @@ public class Instances<T> implements Iterable<Instance<T>>{
     public int countClasses() {
         if(_instances.isEmpty())
             throw new RuntimeException("No instances added!");
-        return _instances
-                .stream()
-                .filter(Instance::isLabeled)
-                .map(Instance::getLabel)
-                .collect(Collectors.toCollection(HashSet::new))
-                .size();
+        return getLabels().size();
     }
 
     /**
@@ -73,6 +68,16 @@ public class Instances<T> implements Iterable<Instance<T>>{
 
     public Instance<T> get(int index) {
         return _instances.get(index);
+    }
+
+    public List<Integer> getLabels() {
+        return _instances
+                .stream()
+                .filter(Instance::isLabeled)
+                .map(Instance::getLabel)
+                .collect(Collectors.toCollection(HashSet::new))
+                .stream()
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override

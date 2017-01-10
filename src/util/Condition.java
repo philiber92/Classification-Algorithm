@@ -23,12 +23,19 @@ public class Condition {
         _conditionType = conditionType;
     }
 
-    public boolean check(double value) {
-
-    }
-
-    public boolean isTrue() {
-
+    public boolean check(double arg) {
+        switch (_conditionType) {
+            case GREATER:
+                return _value > arg;
+            case LESS:
+                return _value < arg;
+            case GREATER_THAN:
+                return _value >= arg;
+            case LESS_THAN:
+                return _value <= arg;
+            default:
+                return _value == arg;
+        }
     }
 
     public int getDimension() {

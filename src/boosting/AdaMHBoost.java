@@ -1,7 +1,7 @@
 package boosting;
 
 import parser.Instances;
-import tree.BoostableADTree;
+import tree.BinaryClassADTree;
 
 import java.util.Vector;
 
@@ -12,7 +12,7 @@ import java.util.Vector;
  */
 public class AdaMHBoost implements Boosting<Vector, Vector>{
     @Override
-    public void boost(BoostableADTree<Vector, Vector> tree, Instances<Vector> instances, int iterations) {
+    public void boost(BinaryClassADTree tree, Instances<Vector> instances, int iterations) {
 
     }
 }

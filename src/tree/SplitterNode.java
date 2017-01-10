@@ -5,7 +5,7 @@ import util.Condition;
 /**
  * @author Philipp Bergt
  */
-public interface SplitterNode {
+public interface SplitterNode<PredictionType> {
 
     /**
      *
@@ -17,11 +17,11 @@ public interface SplitterNode {
      *
      * @return
      */
-    PredictionNode getTruePrediction();
+    PredictionNode<PredictionType> getTruePrediction();
 
     /**
      *
      * @return
      */
-    PredictionNode getFalsePrediction();
+    PredictionNode<PredictionType> getFalsePrediction();
 }

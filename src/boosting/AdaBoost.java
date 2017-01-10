@@ -1,7 +1,7 @@
 package boosting;
 
 import parser.Instances;
-import tree.BoostableADTree;
+import tree.BinaryClassADTree;
 
 import java.util.Vector;
 
@@ -13,13 +13,13 @@ import java.util.Vector;
 public class AdaBoost implements Boosting<Vector, Double>{
 
     private Instances<Vector> _instances;
-    private BoostableADTree<Vector, Double> _adTree;
+    private BinaryClassADTree _adTree;
     private Vector<Double> _weights;
     private int _iterations;
-    private int _positiveLabel;
+    private int _positiveLabel, _negativeLabel;
 
     @Override
-    public void boost(BoostableADTree<Vector, Double> tree, Instances<Vector> instances, int iterations) {
+    public void boost(BinaryClassADTree tree, Instances<Vector> instances, int iterations) {
         if(instances.countClasses() != 2)
             throw new RuntimeException("AdaBoost is only able two handle binary class problems!");
         if(iterations <= 0)
@@ -27,11 +27,12 @@ public class AdaBoost implements Boosting<Vector, Double>{
         _instances = instances;
         _adTree = tree;
         _iterations = iterations;
-        _positiveLabel = _instances.get(0).getLabel();
         init();
     }
 
     private void init() {
+        _positiveLabel = _adTree.getPositiveLabel();
+        _negativeLabel = _adTree.getNegativeLabel();
         initWeights();
         initRootNode();
     }
@@ -54,4 +55,7 @@ public class AdaBoost implements Boosting<Vector, Double>{
         double alpha = 0.5 * Math.log(positiveWeight/negativeWeight);
         _adTree.setRootPrediction(alpha);
     }
+
+
+
 }
