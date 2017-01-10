@@ -1,5 +1,6 @@
 package boosting;
 
+import parser.Instance;
 import parser.Instances;
 import tree.BinaryClassADTree;
 
@@ -56,6 +57,15 @@ public class AdaBoost implements Boosting<Vector, Double>{
         _adTree.setRootPrediction(alpha);
     }
 
-
+    private void updateWeights() {
+        for(int i = 0; i < _weights.size(); i++) {
+            double value = _weights.get(i);
+            final Instance instance = _instances.get(i);
+            int y = (instance.getLabel() == _positiveLabel) ? 1 : -1;
+            value = value * Math.exp(-y*_adTree.simulate(instance));
+            _weights.set(i, value);
+        }
+    }
 
 }
+
