@@ -1,13 +1,13 @@
-package tree;
-
-import boosting.AdaBoost;
-import parser.Instance;
-import parser.Instances;
-import util.Condition;
+package de.ovgu.classification.tree;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Vector;
+
+import de.ovgu.classification.boosting.AdaBoost;
+import de.ovgu.classification.parser.Instance;
+import de.ovgu.classification.parser.Instances;
+import de.ovgu.classification.util.Condition;
 
 /**
  * Represents a simple alternating decision tree, which is only able to handle binary class problems.
@@ -64,15 +64,15 @@ public class BinaryClassADTree extends BoostableADTree<Vector<Double>, Double> {
         return _negativeLabel;
     }
 
-    private double simulateSplitter(Optional<tree.SplitterNode<Double>> splitter, Instance<Vector<Double>> instance) {
+    private double simulateSplitter(Optional<de.ovgu.classification.tree.SplitterNode<Double>> splitter, Instance<Vector<Double>> instance) {
         if(!splitter.isPresent()) {
             return 0.0;
         }
-        final tree.SplitterNode<Double> splitterNode = splitter.get();
+        final de.ovgu.classification.tree.SplitterNode<Double> splitterNode = splitter.get();
         final Condition condition = splitterNode.getCondition();
         final int dimension = condition.getDimension();
-        final tree.PredictionNode<Double> truePrediction = splitterNode.getTruePrediction();
-        final tree.PredictionNode<Double> falsePrediction = splitterNode.getFalsePrediction();
+        final de.ovgu.classification.tree.PredictionNode<Double> truePrediction = splitterNode.getTruePrediction();
+        final de.ovgu.classification.tree.PredictionNode<Double> falsePrediction = splitterNode.getFalsePrediction();
 
         return (condition.check(instance.getData().get(dimension)))
                 ? truePrediction.getValue() + simulateSplitter(truePrediction.getSplitter(), instance)

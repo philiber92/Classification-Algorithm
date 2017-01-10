@@ -1,6 +1,6 @@
-package tree;
+package de.ovgu.classification.tree;
 
-import util.Condition;
+import de.ovgu.classification.util.Condition;
 
 /**
  * @author Philipp Bergt

@@ -1,4 +1,4 @@
-package parser;
+package de.ovgu.classification.parser;
 
 /**
  * @author Philipp Bergt

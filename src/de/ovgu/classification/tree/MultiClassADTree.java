@@ -1,10 +1,10 @@
-package tree;
-
-import boosting.LTBoost;
-import parser.Instance;
-import parser.Instances;
+package de.ovgu.classification.tree;
 
 import java.util.Vector;
+
+import de.ovgu.classification.boosting.LTBoost;
+import de.ovgu.classification.parser.Instance;
+import de.ovgu.classification.parser.Instances;
 
 /**
  * Represents an adaption of classic

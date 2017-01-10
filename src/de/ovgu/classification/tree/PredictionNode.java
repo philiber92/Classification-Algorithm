@@ -1,4 +1,4 @@
-package tree;
+package de.ovgu.classification.tree;
 
 import java.util.Optional;
 

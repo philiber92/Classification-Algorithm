@@ -1,7 +1,7 @@
-package boosting;
+package de.ovgu.classification.boosting;
 
-import parser.Instances;
-import tree.BinaryClassADTree;
+import de.ovgu.classification.parser.Instances;
+import de.ovgu.classification.tree.BinaryClassADTree;
 
 /**
  * Main interface for all possible boosting algorithms.

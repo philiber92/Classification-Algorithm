@@ -1,10 +1,10 @@
-package boosting;
-
-import parser.Instance;
-import parser.Instances;
-import tree.BinaryClassADTree;
+package de.ovgu.classification.boosting;
 
 import java.util.Vector;
+
+import de.ovgu.classification.parser.Instance;
+import de.ovgu.classification.parser.Instances;
+import de.ovgu.classification.tree.BinaryClassADTree;
 
 /**
  * Represents the basic AdaBoost algorithm, which it's able to classify binary problems.

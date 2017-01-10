@@ -1,19 +1,19 @@
-package tree;
-
-import boosting.Boosting;
-import parser.Instances;
-import util.Condition;
+package de.ovgu.classification.tree;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import de.ovgu.classification.boosting.Boosting;
+import de.ovgu.classification.parser.Instances;
+import de.ovgu.classification.util.Condition;
 
 /**
  * @author Philipp Bergt
  */
 public abstract class BoostableADTree<Input, PredictionType> implements ADTree<Input, PredictionType>{
 
-    protected Optional<tree.PredictionNode> rootNode;
+    protected Optional<de.ovgu.classification.tree.PredictionNode> rootNode;
     protected Boosting boostStrategy;
 
     public BoostableADTree() {
@@ -37,7 +37,7 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
     }
 
     @Override
-    public void setRoot(tree.PredictionNode predictionNode) {
+    public void setRoot(de.ovgu.classification.tree.PredictionNode predictionNode) {
         rootNode = Optional.of(predictionNode);
     }
 
@@ -47,14 +47,14 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
     }
 
     @Override
-    public Optional<tree.PredictionNode> getRootPrediction() {
+    public Optional<de.ovgu.classification.tree.PredictionNode> getRootPrediction() {
         return rootNode;
     }
 
-    class PredictionNode implements tree.PredictionNode<PredictionType> {
+    class PredictionNode implements de.ovgu.classification.tree.PredictionNode<PredictionType> {
 
         private final PredictionType _prediction;
-        private Optional<tree.SplitterNode<PredictionType>> _splitter;
+        private Optional<de.ovgu.classification.tree.SplitterNode<PredictionType>> _splitter;
 
         PredictionNode(PredictionType prediction) {
             this(prediction, null);
@@ -66,7 +66,7 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
         }
 
         @Override
-        public void setSplitter(tree.SplitterNode<PredictionType> splitter) {
+        public void setSplitter(de.ovgu.classification.tree.SplitterNode<PredictionType> splitter) {
             _splitter = Optional.ofNullable(splitter);
         }
 
@@ -76,7 +76,7 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
         }
 
         @Override
-        public Optional<tree.SplitterNode<PredictionType>> getSplitter() {
+        public Optional<de.ovgu.classification.tree.SplitterNode<PredictionType>> getSplitter() {
             return _splitter;
         }
 
@@ -118,7 +118,7 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
         }
     }
 
-    class SplitterNode implements tree.SplitterNode<PredictionType> {
+    class SplitterNode implements de.ovgu.classification.tree.SplitterNode<PredictionType> {
 
         private final Condition _condition;
         private final PredictionNode _truePrediction, _falsePrediction;
@@ -135,12 +135,12 @@ public abstract class BoostableADTree<Input, PredictionType> implements ADTree<I
         }
 
         @Override
-        public tree.PredictionNode<PredictionType> getTruePrediction() {
+        public de.ovgu.classification.tree.PredictionNode<PredictionType> getTruePrediction() {
             return _truePrediction;
         }
 
         @Override
-        public tree.PredictionNode<PredictionType> getFalsePrediction() {
+        public de.ovgu.classification.tree.PredictionNode<PredictionType> getFalsePrediction() {
             return _falsePrediction;
         }
     }

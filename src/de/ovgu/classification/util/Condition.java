@@ -1,4 +1,4 @@
-package util;
+package de.ovgu.classification.util;
 
 /**
  * @author Philipp Bergt

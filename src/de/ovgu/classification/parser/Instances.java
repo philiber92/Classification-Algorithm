@@ -1,4 +1,4 @@
-package parser;
+package de.ovgu.classification.parser;
 
 import java.util.ArrayList;
 import java.util.HashSet;

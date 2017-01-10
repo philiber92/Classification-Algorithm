@@ -1,3 +1,4 @@
+package de.ovgu.classification;
 /**
  * @author Philipp Bergt
  */
